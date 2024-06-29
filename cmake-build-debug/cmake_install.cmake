@@ -1,4 +1,4 @@
-# Install script for directory: /Users/adameljaa/Desktop/Code/Summer Coursework/Version 2
+# Install script for directory: /Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

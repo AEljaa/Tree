@@ -27,18 +27,18 @@ public:
         std::cout<<"in cosntructor"<<std::endl;
         std::vector<std::string> variables;
         std::list<tree_t> values_for_quality;
-        variables = input[0];
+        variables = input[0];// ["temperature", "rain", "wind", "quality"] we do temp,edges link to rain, rain edges link to wind, wind edges link to quality
         for (int x = 0; x < variables.size()-1; x++) {
             input = order_input(input,x);
-            for (int y = 1; y < input.size(); y++) {
-                values_for_quality=quality_iterator_adder(input[y]);
-                if(x==variables.size()-2){
+            for (int y = 1; y < input.size(); y++) { //y is the other rows (non variables) ["high", "yes", "light", "acceptable"]
+                if(x==variables.size()-2){ //x = 2 -> wind quality
+                    values_for_quality=quality_iterator_adder(input[y]);
                     add_quality(input[0][x],values_for_quality,input[y][x],input[y][x+1]);
+                    values_for_quality=quality_iterator_remover(values_for_quality);//this too
                 }
-                else {
+                else { //x = 0 -> tmp rain x = 1 -> rain wind
                     add_edge(input[0][x], input[0][x + 1], input[y][x]);
                 }
-                values_for_quality=quality_iterator_remover(values_for_quality);
             }
         }
     }
@@ -46,7 +46,7 @@ public:
     //similar implementation to previous assignment though now we need to add a value to edgenode
     void add_quality(tree_t node_val,std::list<tree_t> values,tree_t data,tree_t qual_val){
         auto parent=find_quality(node_val,values,data,t,qual_val);
-        if(parent==nullptr){
+        if(parent==nullptr){ 
             return;
         }
         auto child = allocate_tree_node(qual_val);
@@ -58,7 +58,7 @@ public:
         std::list<tree_t>::iterator quality_val;
         quality_val=values.begin();
         TreeNode *result;
-        if(t->subtree_l==nullptr || ((t->subtree_l->val !=data)&& (t->val==node_val))){
+        if(t->subtree_l==nullptr || ((t->subtree_l->val !=data)&& (t->val==node_val))){ // if quality hasnt been added, return address of this node
             return t;
         }
         if(t->subtree_l->val == *quality_val){
@@ -73,11 +73,11 @@ public:
                 it = it->next;
             }
         }
-        if(t->subtree_l->val != *quality_val){
+        if(t->subtree_l->val != *quality_val){//else
             //check the next edgenode val;
-            if(t->subtree_l->next!= nullptr || t->subtree_l->next->val == *quality_val){
+            if(t->subtree_l->next!= nullptr || t->subtree_l->next->val == *quality_val){ // go to next edgenode as the quality val is not being pointed to currently
                 TreeNode* tmp;
-                 tmp=switch_subtrees(tmp,t);
+                 tmp=switch_subtrees(tmp,t); //holds path of what we need for quality addition (can pass by reference)
                 result=find_quality(node_val,values, data, tmp,qual);
                 if (result->subtree_l==nullptr || ((result->subtree_l->val !=data)&& (result->val==node_val))) {
                     return result;
@@ -93,19 +93,19 @@ public:
     TreeNode* switch_subtrees(TreeNode* tmp , TreeNode* t){
         tmp->val=t->val;
         tmp->subtree_l=t->subtree_l->next;
-        return tmp;
+        return tmp;//return pointer to tree but with the subtrees now swapped
     }
     // finds the node with the data we want,to prevent us endelesly adding onto the tree
     TreeNode* find_node(tree_t root,tree_t node_val,tree_t data,TreeNode* t){
         if(t->val==root) {
-            if (t->subtree_l == nullptr) {
+            if (t->subtree_l == nullptr) { //if subtree is empty, return tree to add onto
                 return t;
             }
-            if (t->subtree_l->val == data && t->subtree_l->subtree->val == node_val) {
+            if (t->subtree_l->val == data && t->subtree_l->subtree->val == node_val) { //if the two nodes and the edgenode connecting them have already been made, do nothing
                 return nullptr;
             }
 
-            if (t->subtree_l->val != data) {
+            if (t->subtree_l->val != data) { //if the edgenode data doesn't exist add onto tree 
                 return t;
             }
 
@@ -156,7 +156,7 @@ public:
     //adds an edge node with the value of data we want,and adds it to the current tree where we want.
     void add_edge(tree_t root,tree_t node_val,tree_t data){
             auto parent=find_node(root,node_val,data,t);
-            if(parent== nullptr){
+            if(parent== nullptr){ //happens if the two nodes and the edgenode connecting them have already been made, do nothing
                 return;
             }
             else {
@@ -276,7 +276,7 @@ public:
     ~A3Tree(){
         deallocate_tree(t);
     }
-    void deallocate_tree(TreeNode* t1){
+    void deallocate_tree(TreeNode*& t1){
         if(t1== nullptr) {
             return;
         }
@@ -301,10 +301,7 @@ private:
 
 int main(){
  
-    // direct initialisation of a vector
-    // in this case it's a vector containing vectors
-    // each of which contains words (std::string)
-    std::vector<std::vector<std::string>> input
+    std::vector<std::vector<std::string>> input1
     {
         {"temperature", "rain", "wind", "quality"},
         {"high", "yes", "light", "acceptable"},
@@ -319,28 +316,28 @@ int main(){
         {"high", "no", "strong", "poor"}
     };
  
-    A3Tree t(input);
+    std::vector<std::vector<std::string>> input2
+    {
+        {"feature0", "Feature_3", "not_a_feature", "feature2"},
+        {"a",        "a13480",    "1",             "10"},
+        {"a",        "B_34203",   "a2",            "9"},
+        {"a",        "a13480",    "3",             "8"},
+        {"a",        "B_34203",   "2",             "B_34203"},
+        {"a",        "B_34203",   "some_value",    "6"},
+        {"a",        "a13480",    "1",             "5"}
+    };
  
-    // direct initialisation of a vector:
-    std::vector<std::string> q{"low", "yes", "strong"};
+    A3Tree t1(input1);
+    A3Tree t2(input2);
  
-    std::cout << t.query(q) << std::endl;
-    // this should print: poor
+    std::vector<std::string> q;
  
-    // assigning new content overwriting the previous content:
     q =  {"high", "yes", "moderate"};
- 
-    std::cout << t.query(q) << std::endl;
+    std::cout << t1.query(q) << std::endl;
     // this should print: acceptable
  
-    std::cout << t.node_count() << std::endl;
-    // this depends on the actual tree generated,
-    // if we consider the tree in the example which
-    // has wind in the root node this should print: 10
- 
-    std::cout << t.leaf_node_count() << std::endl;
-    // this depends on the actual tree generated,
-    // if we consider the tree in the example which
-    // has wind in the root node this should print: 6
+    q = {"a", "a13480", "1"};
+    std::cout << t2.query(q) << std::endl;
+    // this should print: a2
  
 }

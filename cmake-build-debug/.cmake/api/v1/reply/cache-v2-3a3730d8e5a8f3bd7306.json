@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2/cmake-build-debug"
+			"value" : "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2"
+			"value" : "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -759,7 +759,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : ""
+			"value" : "14.3"
 		},
 		{
 			"name" : "CMAKE_OSX_SYSROOT",
@@ -771,7 +771,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk"
+			"value" : "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2/cmake-build-debug"
+			"value" : "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2/cmake-build-debug"
 		},
 		{
 			"name" : "Version_2_IS_TOP_LEVEL",
@@ -1135,7 +1135,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/adameljaa/Desktop/Code/Summer Coursework/Version 2"
+			"value" : "/Users/adameljaa/Desktop/Code/Summer Term Coursework/Version 2"
 		}
 	],
 	"kind" : "cache",
