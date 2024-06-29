@@ -225,13 +225,13 @@ public:
     //I stuggle with traversing the tree and not chnaging it in this fucntion,sicne this fucntion doesnt have t as a parameter so i'm unable to make it recursive whilst traversing the tree and changign the tree,sicne fucntion doesnt let me pass a tree as a parameter
     //made a new function that this fucntion calls to that i cna pass a tree to and it returns the number of nodes+1 so i minus 1 to get the correct value
     int node_count(){
-        return count_node(t)-1;
+        return count_node(t)+1;
     }
 
     //much like the node_count func i also struggled getting this function to not change my original tree,i used a treenode temp and tried to copy temp to t,but it doesnt make a completely new copy and so changes to temp impact the original tree(t).
 //so i made a new fucntion that this fucntions calls where i can pass t and make this recursive and hopefuly not chnage the original tree
     int leaf_node_count(){
-        return  leaf_count(t);
+        return  leaf_count(t)+1;
     }
 
 private:
@@ -301,7 +301,10 @@ private:
 
 int main(){
  
-    std::vector<std::vector<std::string>> input1
+    // direct initialisation of a vector
+    // in this case it's a vector containing vectors
+    // each of which contains words (std::string)
+    std::vector<std::vector<std::string>> input
     {
         {"temperature", "rain", "wind", "quality"},
         {"high", "yes", "light", "acceptable"},
@@ -316,40 +319,28 @@ int main(){
         {"high", "no", "strong", "poor"}
     };
  
-    std::vector<std::vector<std::string>> input2
-    {
-        {"Feature_3", "feature2", "feature", "feature0", "not_a_feature"},
-        {"a13480", "10", "a13480", "a", "1"},
-        {"B_34203", "9", "1343432", "a", "a2"},
-        {"a13480", "8", "57657", "a", "3"},
-        {"B_34203", "B_34203", "4523", "a", "2"},
-        {"B_34203", "6", "4523", "a", "some_value"},
-        {"a13480", "5", "4523", "a", "1"}
-    };
+    A3Tree t(input);
  
-    A3Tree t1(input1);
-    //A3Tree t2(input2);
+    // direct initialisation of a vector:
+    std::vector<std::string> q{"low", "yes", "strong"};
  
-    std::vector<std::string> q;
+    std::cout << t.query(q) << std::endl;
+    // this should print: poor
  
-    q =  {"low", "yes", "light"};
-    std::cout << t1.query(q) << std::endl;
-    
-
-
-    
-    std::cout << t1.leaf_node_count() << std::endl;
-    std::cout << t1.node_count() << std::endl;
+    // assigning new content overwriting the previous content:
+    q =  {"high", "yes", "moderate"};
+ 
+    std::cout << t.query(q) << std::endl;
     // this should print: acceptable
-    
-    std::cout << t1.leaf_node_count() << std::endl;
-    std::cout << t1.node_count() << std::endl;
-
-    std::cout << t1.leaf_node_count() << std::endl;
-    std::cout << t1.node_count() << std::endl;
  
-    q = {"B_34203", "9", "1343432", "a"};
-    //std::cout << t2.query(q) << std::endl;
-    // this should print: a2
+    std::cout << t.node_count() << std::endl;
+    // this depends on the actual tree generated,
+    // if we consider the tree in the example which
+    // has wind in the root node this should print: 10
+ 
+    std::cout << t.leaf_node_count() << std::endl;
+    // this depends on the actual tree generated,
+    // if we consider the tree in the example which
+    // has wind in the root node this should print: 6
  
 }
